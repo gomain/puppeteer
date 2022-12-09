@@ -157,8 +157,8 @@ type FlatmapSplitWithDelemiters<
           Delemiters,
           [...Acc, ...SplitWithDelemiters<FirstInput, Delemiters>]
         >
-      : Acc
-    : Acc
+      : never
+    : never
   : Acc;
 
 type Split<
@@ -168,3 +168,53 @@ type Split<
 > = Input extends `${infer Prefix}${Delemiter}${infer Suffix}`
   ? Split<Suffix, Delemiter, [...Acc, Prefix]>
   : [...Acc, Input];
+
+export type T0 =
+  NodeFor<'p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p'>;
+
+type ReverseAccEval<Input extends string> = ReverseAccEval_<Input, ''>;
+type ReverseAccEval_<
+  Input extends string,
+  Acc extends string
+> = Input extends `${infer Head}${infer Tail}`
+  ? `${Head}${Acc}` extends infer Acc_
+    ? Acc_ extends string
+      ? ReverseAccEval_<Tail, Acc_>
+      : never
+    : never
+  : Acc;
+type ReverseAccNoEval<Input extends string> = ReverseAccNoEval_<Input, ''>;
+type ReverseAccNoEval_<
+  Input extends string,
+  Acc extends string
+> = Input extends `${infer Head}${infer Tail}`
+  ? ReverseAccNoEval_<Tail, `${Head}${Acc}`>
+  : Acc;
+type ReverseNoAcc<Input extends string> =
+  Input extends `${infer Head}${infer Tail}`
+    ? `${ReverseNoAcc<Tail>}${Head}`
+    : Input;
+type ReverseNoAccEval<Input extends string> =
+  Input extends `${infer Head}${infer Tail}`
+    ? ReverseNoAccEval<Tail> extends infer RTail
+      ? RTail extends string
+        ? `${RTail}${Head}`
+        : never
+      : never
+    : Input;
+
+export type T =
+  ReverseAccEval<'a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a'>;
+export type T4 =
+  ReverseAccNoEval<'a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a'>;
+
+export type T2 =
+  ReverseNoAcc<'a b c d e f g a b c d e f g a b c d e f g a b c '>;
+
+export type T3 =
+  ReverseNoAccEval<'a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f '>;
+
+export type T5 = Split<
+  'a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a b c d e f g a',
+  ''
+>;
